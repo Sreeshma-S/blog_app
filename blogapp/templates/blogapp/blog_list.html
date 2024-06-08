@@ -1,0 +1,20 @@
+{% extends "blogapp/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for post in posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title"><a href="{% url 'blogapp:blog_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.date}} </p>
+                    <p class="card-text">{{post.text|slice:":200" }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'blogapp/sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+{% endblock content %}

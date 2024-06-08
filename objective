@@ -1,0 +1,30 @@
+
+
+Django Developer Practical Test
+Objective:
+Develop a simple blog application with user authentication, Use Django Rest Framework for CRUD operations for blog posts, and API for managing blog posts.
+Requirements:
+1.User Authentication:
+• Implement user registration, login, and logout functionality.
+• Only authenticated users can create, edit, or delete their own blog posts.
+
+2.Blog Post Management:
+• Implement CRUD operations for blog posts (Create, Read, Update, Delete).
+• Each blog post should have a title, content, author (linked to user), and a timestamp.
+
+3.API for Blog Posts:
+• Create a RESTful API using Django Rest Framework for managing blog posts.
+• The API should allow for listing all posts, retrieving a single post, creating a new post, updating a post, and deleting a post.
+• Bonus: Create a post scheduler. So that the posts can be automatically published in scheduled date and time
+
+4.User Interface:
+• Create templates for listing all blog posts, viewing a single post, and forms for creating/editing posts.
+• Use Bootstrap for basic styling.
+
+5.Bonus: Testing:
+• Write unit tests for the views and API endpoints.
+
+Deliverables:
+• A GitHub repository with the complete project.
+• A README file with instructions on how to set up and run the project.
+• Basic unit tests for the views and API endpoints.

@@ -1,0 +1,43 @@
+{% block sidebar %}
+
+<style>
+        .card{
+            box-shadow: 0 16px 48px #E3E7EB;
+        }
+
+</style>
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4 float-right ">
+<div class="card my-4">
+        <h5 class="card-header">About Us</h5>
+    <div class="card-body">
+        <p class="card-text"> This is a blog app built using django framework with user authentication, scheduled postings and seamless user experience.</p>
+    </div>
+</div>
+    <div class="text-center">
+        <a href="{% url 'blogapp:blog_new' user %}" class="btn btn-success">Write a New Blog</a>
+    </div>
+    <br>
+    <div class="text-center">
+        <h3>My Blogs</h3>
+    </div>
+    <br>
+    <div class="col-md-12 mt-3 left">
+        {% for post in posts %}
+        {% if post.author == request.user %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title"><a href="{% url 'blogapp:blog_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.date}} </p>
+                    <p class="card-text">{{post.text|slice:":200" }}</p>
+                    <span style="color:blue"><a href="{% url 'blogapp:blog_update' pk=post.pk %}">Edit Blog</a></span>
+                    <span style="color:red;float:right;"><a href="{% url 'blogapp:blog_delete' pk=post.pk %}" style="color:red;">Delete Blog</a></span>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock sidebar %}
