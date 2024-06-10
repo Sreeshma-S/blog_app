@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
@@ -7,6 +9,7 @@ from rest_framework.response import Response
 from django.shortcuts import render, get_object_or_404
 from .forms import WriteBlog
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
 
 # Create your views here.
 class BlogListView(generics.ListAPIView):
@@ -42,12 +45,18 @@ def blog_detail(request, pk):
     detail = get_object_or_404(Post, pk=pk)
     return render(request, 'blogapp/blog_detail.html', {'detail': detail})
 
-def blog_new(request, id):
+
+from django.contrib.auth import get_user_model
+
+
+def blog_new(request, user):
     if request.method == "POST":
         form = WriteBlog(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            User = get_user_model()
+            user_qs = User.objects.filter(username=user)
+            post.author = user_qs[0]
             post.published_date = timezone.now()
             post.save()
             return redirect('blogapp:blog_view', pk=post.pk)
