@@ -1,5 +1,4 @@
 from urllib import request
-
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
@@ -9,6 +8,9 @@ from rest_framework.response import Response
 from django.shortcuts import render, get_object_or_404
 from .forms import WriteBlog
 from django.shortcuts import redirect
+# from celery.schedules import crontab
+# from celery.task import periodic_task
+# from .tasks import publish_scheduled_posts
 
 # Create your views here.
 class BlogListView(generics.ListAPIView):
@@ -62,3 +64,8 @@ def blog_new(request, user):
     else:
         form = WriteBlog()
     return render(request, 'blogapp/blog_edit.html', {'form': form})
+
+
+# @periodic_task(run_every=(crontab(hour=x, minute=y)))
+# def schedule_publishing():
+#     publish_scheduled_posts.delay()

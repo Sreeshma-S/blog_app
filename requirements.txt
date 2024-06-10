@@ -2,5 +2,5 @@ Django~=4.2.13
 djangorestframework
 django-crispy-forms
 crispy-bootstrap4
-
-
+celery==4.4.2
+scipy
