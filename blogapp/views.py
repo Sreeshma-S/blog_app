@@ -9,7 +9,6 @@ from rest_framework.response import Response
 from django.shortcuts import render, get_object_or_404
 from .forms import WriteBlog
 from django.shortcuts import redirect
-from django.contrib.auth.models import User
 
 # Create your views here.
 class BlogListView(generics.ListAPIView):
