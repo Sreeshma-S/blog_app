@@ -12,6 +12,7 @@ from django.shortcuts import redirect
 # from celery.task import periodic_task
 # from .tasks import publish_scheduled_posts
 
+
 # Create your views here.
 class BlogListView(generics.ListAPIView):
     queryset = Post.objects.all()
@@ -38,18 +39,12 @@ class BlogDeleteView(generics.DestroyAPIView):
         instance.delete()
         return Response(print("Blog Deleted"))
 
-def blog_list(request, user):
+def blog_list(request):
+    User = get_user_model()
     posts = Post.objects.filter(date__lte=timezone.now()).order_by('date')
-    return render(request, 'blogapp/blog_list.html', {'posts': posts, 'user': user})
-
-def blog_detail(request, pk):
-    detail = get_object_or_404(Post, pk=pk)
-    return render(request, 'blogapp/blog_detail.html', {'detail': detail})
-
+    return render(request, 'blogapp/blog_list.html', {'posts': posts})
 
 from django.contrib.auth import get_user_model
-
-
 def blog_new(request, user):
     if request.method == "POST":
         form = WriteBlog(request.POST)
@@ -64,6 +59,33 @@ def blog_new(request, user):
     else:
         form = WriteBlog()
     return render(request, 'blogapp/blog_edit.html', {'form': form})
+
+def blog_edit(request, pk):
+    blog = get_object_or_404(Post, pk=pk)
+
+    if request.method != 'POST':
+        form = WriteBlog(instance=blog)
+
+    else:
+        form = WriteBlog(instance=blog, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blogapp:blogs')
+
+
+    context = {'post': blog, 'form': form}
+    return render(request, 'blogapp/blog_edit.html', context)
+
+def blog_detail(request, pk):
+    detail = get_object_or_404(Post, pk=pk)
+    return render(request, 'blogapp/blog_detail.html', {'detail': detail})
+
+def blog_delete(request, pk):
+    blog = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        blog.delete()
+        return redirect('blogapp:blogs')
+    return render(request, 'blogapp/blog_delete.html', {'blog':blog.title})
 
 
 # @periodic_task(run_every=(crontab(hour=x, minute=y)))
