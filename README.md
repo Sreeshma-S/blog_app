@@ -6,12 +6,15 @@ The objective of the project is to develop a blog application with user authenti
 Clone the repository:
 
 ```sh
-git clone https://github.com/Sreeshma-S/blog_app.git
+git clone -b master https://github.com/Sreeshma-S/blog_app.git
 ```
 
 Create a virtual environment and activate it:
 
 ```sh
+
+cd blogapp
+
 python -m venv myvenv
 
 .\venv\Scripts\activate
@@ -25,7 +28,9 @@ Then install the dependencies:
 
 Once `pip` has finished downloading the dependencies:
 ```sh
-(venv) cd project
+(venv) python manage.py makemigrations
+
+(venv) python manage.py migrate
 
 (venv) python manage.py runserver
 ```
@@ -36,10 +41,10 @@ And navigate to `http://127.0.0.1:8000/` in your browser to view the localhost.
 ### Demo
 - Get started with new user registration
 - Login with your registered credentials
-- In home page you can see blogs present, about the app and a functionality to create new blog
-- Go ahead and create a new blog
+- In home page you can see blogs existing blogs.
+- In order to create new blog click on the sidebar to create, edit or delete your own blog
 - Once you have successfully posted the blog, it appears in "My Blog" section which you can edit and delete.
-
+- Other users blogs are available for view option
 
 Below are the API Endpoints:
 
