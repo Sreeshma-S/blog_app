@@ -17,7 +17,7 @@ cd blogapp
 
 python -m venv myvenv
 
-.\venv\Scripts\activate
+.\myvenv\Scripts\activate
 ```
 
 Then install the dependencies:
